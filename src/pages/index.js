@@ -1,9 +1,19 @@
+import React, {useEffect} from 'react';
+import {useRouter} from 'next/router';
+import {isUserLoggedIn} from '../utils/auth';
+
 function index() {
-    return (
-        <div>
-            Hello from index.js
-        </div>
-    )
+  const router = useRouter();
+  useEffect(() => {
+    if (isUserLoggedIn()) {
+      router.push('/home');
+    } else {
+      router.push('/login');
+    }
+  }, [isUserLoggedIn()]);
+  return (
+    <span>Loading...</span>
+  );
 }
 
-export default index
+export default index;
