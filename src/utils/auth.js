@@ -29,3 +29,11 @@ export const login = (email, password, callback = null) => {
     callback(err, null);
   });
 };
+
+export const storeAuthInfoToLocal = (data) => {
+  if (!window.localStorage) {
+    throw new Error('localStorage error');
+  }
+  localStorage.setItem('_token', JSON.stringify(data));
+};
+

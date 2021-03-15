@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {login} from '../utils/auth';
+import {login, storeAuthInfoToLocal} from '../utils/auth';
 import Head from 'next/head';
 
 function Login() {
@@ -16,8 +16,13 @@ function Login() {
         return setError(errMessage.message);
       }
       setError(false);
-      const {message, data: {session_id}} = response;
-      console.log(message);
+      const {data} = response;
+      try {
+        storeAuthInfoToLocal(data);
+      } catch (e) {
+        // TODO: Set a proper error handle
+        console.log(e.message);
+      }
     });
   }
 
